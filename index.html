@@ -2,155 +2,141 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>양산동 롯데캐슬 위너스포레 - 단지 내 상가 분양</title>
     <!-- 구글 폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* --- 변수 및 초기화 --- */
         :root {
             --navy: #001f3f;
-            --navy-dark: #00152b;
+            --navy-dark: #000d1a;
             --gold: #D4AF37;
-            --gold-muted: #B8962D;
+            --gold-light: #F2D06B;
             --white: #ffffff;
-            --slate: #f8fafc;
-            --sidebar-width: 420px;
+            --slate: #f1f5f9;
+            --gray-text: #64748b;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
             background-color: var(--navy); 
             color: var(--navy);
-            overflow-x: hidden;
+            line-height: 1.6;
+            word-break: keep-all;
         }
 
         /* --- 레이아웃 --- */
         .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
-        @media (min-width: 768px) {
-            .wrapper { flex-direction: row; height: 100vh; overflow: hidden; }
-        }
+        @media (min-width: 1024px) { .wrapper { flex-direction: row; height: 100vh; overflow: hidden; } }
 
         /* --- 사이드바 --- */
         .sidebar {
             position: relative;
             background-color: var(--navy);
             color: var(--white);
-            padding: 40px;
+            padding: 50px 24px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            justify-content: center;
         }
-        @media (min-width: 768px) {
-            .sidebar { width: var(--sidebar-width); height: 100vh; flex-shrink: 0; padding: 60px; }
-        }
+        @media (min-width: 1024px) { .sidebar { width: 440px; height: 100vh; flex-shrink: 0; padding: 80px 60px; justify-content: space-between; } }
 
-        .bg-img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.3; filter: grayscale(100%); z-index: 0;
-        }
-        .bg-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,31,63,0.6), rgba(0,31,63,0.8), rgba(0,31,63,1)); z-index: 1;
-        }
-
+        .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.25; filter: grayscale(100%); z-index: 0; }
+        .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,31,63,0.8), rgba(0,31,63,1)); z-index: 1; }
         .sidebar-content { position: relative; z-index: 2; }
-        .sidebar-label { color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 15px; }
-        .sidebar-title { font-size: 2.2rem; font-weight: 900; line-height: 1.3; letter-spacing: -0.05em; }
+        .sidebar-label { color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 12px; }
+        .sidebar-title { font-size: 1.8rem; font-weight: 900; line-height: 1.35; letter-spacing: -0.03em; }
         @media (min-width: 1024px) { .sidebar-title { font-size: 2.75rem; } }
-        .sidebar-title span { color: var(--gold); }
+        .sidebar-title span { color: var(--gold); display: block; margin-top: 4px; }
 
-        .desktop-nav { margin-top: 50px; display: none; }
-        @media (min-width: 768px) { .desktop-nav { display: block; } }
+        .desktop-nav { margin-top: 60px; display: none; }
+        @media (min-width: 1024px) { .desktop-nav { display: block; } }
         .nav-item {
             display: block; color: rgba(255,255,255,0.4); text-decoration: none;
-            font-size: 18px; font-weight: 700; padding-left: 24px; border-left: 4px solid transparent;
-            margin-bottom: 24px; transition: all 0.3s;
+            font-size: 17px; font-weight: 700; padding-left: 20px; border-left: 3px solid transparent;
+            margin-bottom: 22px; transition: all 0.3s;
         }
         .nav-item.active { color: var(--gold); border-left-color: var(--gold); transform: translateX(8px); }
 
         /* --- 메인 콘텐츠 --- */
-        .main-content {
-            flex: 1; background-color: var(--slate); 
-            padding: 40px 24px; overflow-x: hidden;
-        }
-        @media (min-width: 768px) {
-            .main-content { height: 100vh; overflow-y: auto; padding: 80px 80px; }
-        }
+        .main-content { flex: 1; background-color: var(--slate); padding: 40px 20px; }
+        @media (min-width: 1024px) { .main-content { height: 100vh; overflow-y: auto; padding: 100px 80px; } }
+        .container { max-width: 860px; margin: 0 auto; }
+        .section { margin-bottom: 80px; scroll-margin-top: 40px; }
+        @media (min-width: 1024px) { .section { margin-bottom: 120px; scroll-margin-top: 100px; } }
+        .section-label { color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
+        .section-title { font-size: 1.65rem; font-weight: 900; color: var(--navy); border-bottom: 4px solid var(--gold); display: inline-block; padding-bottom: 4px; margin-bottom: 30px; }
 
-        .container { max-width: 900px; margin: 0 auto; }
-        .section { margin-bottom: 120px; scroll-margin-top: 100px; }
-        .section-header { margin-bottom: 40px; }
-        .section-label { color: var(--gold); font-size: 12px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
-        .section-title { font-size: 1.8rem; font-weight: 900; border-bottom: 4px solid var(--gold); display: inline-block; padding-bottom: 5px; color: var(--navy); }
-
-        /* --- 사업개요 표 --- */
-        .table-card { background: white; border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,31,63,0.1); box-shadow: 0 20px 40px rgba(0,31,63,0.05); }
+        /* --- 사업개요 카드 --- */
+        .table-card { background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,31,63,0.06); overflow: hidden; border: 1px solid rgba(0,31,63,0.05); }
         .overview-table { width: 100%; border-collapse: collapse; }
-        .overview-table th { 
-            width: 33%; background: rgba(0,31,63,0.03); padding: 28px; text-align: left;
-            font-size: 13px; font-weight: 900; color: var(--gold); letter-spacing: 0.1em;
-            border-right: 1px solid rgba(0,31,63,0.05); border-bottom: 1px solid rgba(0,31,63,0.05);
+        @media (max-width: 640px) {
+            .overview-table tr { display: block; padding: 20px; border-bottom: 1px solid #f1f5f9; }
+            .overview-table th { display: block; padding: 0 0 6px 0; font-size: 11px; text-align: left; }
+            .overview-table td { display: block; padding: 0; font-size: 1.1rem; font-weight: 700; }
         }
-        .overview-table td { padding: 28px; font-size: 1.15rem; font-weight: 700; color: var(--navy); border-bottom: 1px solid rgba(0,31,63,0.05); }
+        @media (min-width: 641px) {
+            .overview-table th { width: 32%; background: #fafbfc; padding: 24px; text-align: left; font-size: 13px; font-weight: 900; color: #b8962d; border-right: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+            .overview-table td { padding: 24px; font-size: 1.1rem; font-weight: 700; color: var(--navy); border-bottom: 1px solid #f1f5f9; }
+        }
 
-        /* --- 지도 영역 --- */
-        .map-wrap { margin-top: 32px; background: white; padding: 12px; border-radius: 16px; border: 1px solid rgba(0,31,63,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .fallback-links { display: flex; gap: 8px; justify-content: center; margin-top: 15px; }
-        .map-btn { font-size: 10px; font-weight: 900; color: var(--gold); border: 1px solid rgba(212,175,55,0.3); padding: 6px 12px; border-radius: 4px; text-decoration: none; transition: 0.3s; }
-        .map-btn:hover { background: var(--gold); color: var(--navy); }
+        /* --- 지도 --- */
+        .map-wrap { margin-top: 24px; background: white; padding: 10px; border-radius: 20px; border: 1px solid rgba(0,31,63,0.08); box-shadow: 0 15px 30px rgba(0,0,0,0.04); }
+        .fallback-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .map-btn { display: flex; align-items: center; justify-content: center; height: 44px; font-size: 11px; font-weight: 800; color: var(--navy); background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; }
+
+        /* --- 평면도 전환 시스템 (중요!) --- */
+        .tab-group { margin-bottom: 20px; }
+        .tab-title { font-size: 11px; font-weight: 900; color: var(--gray-text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .tab-btns { display: flex; gap: 8px; margin-bottom: 15px; }
+        .tab-btn { flex: 1; height: 50px; background: white; border: 1px solid #e2e8f0; font-weight: 800; font-size: 13px; cursor: pointer; border-radius: 12px; transition: 0.2s; }
+        .tab-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+        
+        .sub-tab-btns { display: flex; gap: 6px; }
+        .sub-btn { flex: 1; height: 40px; background: #eaeff5; border: none; font-weight: 800; font-size: 12px; cursor: pointer; border-radius: 8px; color: var(--gray-text); }
+        .sub-btn.active { background: var(--gold); color: var(--navy); }
+
+        .floor-img-box { background: white; padding: 15px; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-top: 20px; }
+        .floor-img-box img { width: 100%; display: none; }
+        .floor-img-box img.active { display: block; animation: fadeIn 0.4s ease-out; }
 
         /* --- 프리미엄 그리드 --- */
-        .premium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-        .premium-card { background: white; padding: 24px; border-radius: 12px; border: 1px solid rgba(0,31,63,0.05); transition: 0.3s; }
-        .premium-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,31,63,0.08); }
-        .premium-tag { font-size: 10px; font-weight: 900; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 8px; }
-        .premium-title { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
-        .premium-desc { font-size: 12px; color: rgba(0,31,63,0.6); font-weight: 600; line-height: 1.5; }
+        .premium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+        .premium-card { background: white; padding: 24px; border-radius: 18px; border: 1px solid rgba(0,31,63,0.04); }
+        .premium-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 6px; color: var(--navy); }
 
-        .park-img { margin-top: 32px; border: 4px solid white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .park-img img { width: 100%; height: auto; display: block; }
+        .park-img { margin-top: 30px; border: 6px solid white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .park-img img { width: 100%; display: block; }
+        .actual-site-box { border: 6px solid white; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .actual-site-box img { width: 100%; display: block; }
 
-        /* --- 평면도 전환 --- */
-        .tab-wrap { display: flex; gap: 8px; margin-bottom: 24px; }
-        .tab-btn { flex: 1; padding: 15px; background: white; border: 1px solid rgba(0,31,63,0.1); font-weight: 900; font-size: 12px; cursor: pointer; border-radius: 8px; transition: 0.3s; }
-        .tab-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
-        .floor-img-box { background: white; padding: 20px; border-radius: 20px; border: 1px solid rgba(0,31,63,0.1); display: flex; justify-content: center; }
-        .floor-img-box img { width:100%; max-width: 800px; display: none; }
-        .floor-img-box img.active { display: block; }
-
-        /* --- 현장 사진 --- */
-        .actual-site-box { border: 8px solid white; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 60px rgba(0,0,0,0.15); }
-        .actual-site-box img { width: 100%; height: auto; display: block; transition: 1s; }
-        .actual-site-box:hover img { transform: scale(1.05); }
-
-        /* --- 문의하기 섹션 --- */
-        .contact-box { background: var(--navy); color: white; padding: 60px 20px; border-radius: 40px; text-align: center; position: relative; overflow: hidden; }
-        .contact-title { font-size: 2rem; font-weight: 900; line-height: 1.2; margin-bottom: 20px; }
-        .contact-title span { color: var(--gold); }
-        .call-btn { display: inline-block; background: var(--gold); color: var(--navy); font-size: 2rem; font-weight: 900; padding: 20px 40px; border-radius: 16px; text-decoration: none; box-shadow: 0 10px 40px rgba(212,175,55,0.3); transition: 0.3s; margin-top: 20px; }
-        .call-btn:active { transform: scale(0.95); }
+        /* --- 문의하기 --- */
+        .contact-box { background: var(--navy); color: white; padding: 60px 24px; border-radius: 32px; text-align: center; margin-top: 40px; }
+        .call-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            background: linear-gradient(to right, var(--gold), var(--gold-light)); color: var(--navy-dark); 
+            font-size: 1.75rem; font-weight: 900; width: 100%; max-width: 400px; margin: 0 auto; height: 80px; border-radius: 20px; text-decoration: none; 
+        }
 
         /* --- 플로팅 및 푸터 --- */
-        .floating-call { position: fixed; bottom: 30px; right: 30px; background: var(--gold); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(212,175,55,0.5); z-index: 1000; text-decoration: none; }
-        .footer { padding-top: 60px; border-top: 1px solid rgba(0,31,63,0.1); }
-        .biz-brand { font-weight: 900; font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-        .biz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; font-size: 10px; font-weight: 700; color: rgba(0,31,63,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
-        .biz-grid span { color: var(--navy); margin-right: 5px; opacity: 0.6; }
-        .copy { margin-top: 40px; font-size: 9px; color: rgba(0,31,63,0.3); letter-spacing: 0.1em; line-height: 1.8; text-transform: uppercase; }
+        .floating-call { position: fixed; bottom: 24px; right: 24px; background: var(--gold); width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(212,175,55,0.4); z-index: 1000; text-decoration: none; }
+        .footer { padding-top: 60px; border-top: 1px solid #e2e8f0; margin-top: 40px; }
+        .biz-brand { font-weight: 900; font-size: 18px; margin-bottom: 24px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+        .biz-grid { display: grid; grid-template-columns: 1fr; gap: 12px; font-size: 11px; font-weight: 700; color: var(--gray-text); }
+        @media (min-width: 640px) { .biz-grid { grid-template-columns: 1fr 1fr; } }
+        .biz-grid b { color: var(--navy); margin-right: 6px; font-weight: 800; min-width: 70px; display: inline-block; }
+        .copy { margin-top: 40px; font-size: 10px; color: #cbd5e1; font-weight: 600; line-height: 1.6; }
 
-        /* --- 아이콘들 (간단 SVG) --- */
-        .icon { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
-    <!-- 사이드바 -->
     <aside class="sidebar">
         <img src="https://drive.google.com/thumbnail?id=1INZKRXW_NUZhNn0-Q-640iRaubrDCIOP&sz=w1600" class="bg-img" alt="배경">
         <div class="bg-overlay"></div>
@@ -158,202 +144,174 @@
             <div class="sidebar-label">Lotte Castle Winners Foret</div>
             <h1 class="sidebar-title">
                 양산지구의 완성,<br>
-                <span>롯데캐슬</span> 명품<br>
-                단지 내 상가 분양
+                <span>롯데캐슬 명품 상가</span>
             </h1>
             <nav class="desktop-nav">
                 <a href="#overview" class="nav-item active">01 사업개요</a>
                 <a href="#premium" class="nav-item">02 프리미엄 6</a>
                 <a href="#floorplan" class="nav-item">03 상가 평면도</a>
-                <a href="#actual-site" class="nav-item">04 현장사진</a>
-                <a href="tel:1588-2886" class="nav-item">05 문의하기</a>
+                <a href="#actual-site" class="nav-item">04 현장 실사진</a>
+                <a href="tel:1588-2886" class="nav-item">05 분양 문의</a>
             </nav>
         </div>
-        <div class="sidebar-content" style="margin-top: 40px;">
-            <p style="font-size: 11px; font-weight: 900; color: rgba(255,255,255,0.4); text-transform: uppercase;">경기도 오산시 양산동 95번지 일원 | 2027.08 입주예정</p>
+        <div class="sidebar-content" style="margin-top: 30px;">
+            <p style="font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.5);">경기 오산시 양산동 95 | 1,670세대 대단지</p>
         </div>
     </aside>
 
-    <!-- 메인 콘텐츠 -->
     <main class="main-content" id="scroll-target">
         <div class="container">
-            <!-- 사업개요 -->
+            <!-- 01 사업개요 -->
             <section id="overview" class="section">
-                <div class="section-label">Project Overview</div>
+                <div class="section-label">Project Details</div>
                 <h2 class="section-title">사업개요</h2>
                 <div class="table-card">
                     <table class="overview-table">
                         <tr><th>위치</th><td>경기도 오산시 양산동 95번지 일원</td></tr>
-                        <tr><th>단지 규모</th><td>아파트 총 1,670세대 대단지</td></tr>
+                        <tr><th>대지 규모</th><td>아파트 총 1,670세대 대단지</td></tr>
                         <tr><th>상가 규모</th><td>총 32개 호실 (1동 19실 / 2동 13실)</td></tr>
-                        <tr><th>주차 대수</th><td>총 27대 확보</td></tr>
+                        <tr><th>주차 시설</th><td>총 27대 확보</td></tr>
                         <tr><th>입주 예정</th><td>2027년 08월 (양산1중 개교 동시)</td></tr>
-                        <tr><th>주요 환경</th><td>양산1초(29년), 양산1중(27년) 인접</td></tr>
+                        <tr><th>교육 환경</th><td>양산1초(29년), 양산1중(27년) 인접</td></tr>
                     </table>
                 </div>
-
-                <!-- 카카오 지도 -->
                 <div class="map-wrap">
-                    <div id="daumRoughmapContainer1776656865622" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;">
-                        <div style="height:360px; display:flex; align-items:center; justify-content:center; background:#eee; font-size:12px; color:#aaa;">지도를 불러오는 중...</div>
-                    </div>
+                    <div id="daumRoughmapContainer1776656865622" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
                     <div class="fallback-links">
-                        <a href="https://map.kakao.com/?q=경기도%20오산시%20양산동%2095" target="_blank" class="map-btn">카카오맵 보기</a>
-                        <a href="https://map.naver.com/v5/search/경기도%20오산시%20양산동%2095" target="_blank" class="map-btn">네이버 지도 보기</a>
+                        <a href="https://map.kakao.com/?q=경기도%20오산시%20양산동%2095" target="_blank" class="map-btn">카카오맵</a>
+                        <a href="https://map.naver.com/v5/search/경기도%20오산시%20양산동%2095" target="_blank" class="map-btn">네이버 지도</a>
                     </div>
                 </div>
             </section>
 
-            <!-- 프리미엄 -->
+            <!-- 02 프리미엄 -->
             <section id="premium" class="section">
-                <div class="section-header">
-                    <div class="section-label">Investment Value</div>
-                    <h2 class="section-title">프리미엄 6</h2>
-                </div>
+                <div class="section-label">Investment Value</div>
+                <h2 class="section-title">프리미엄 6</h2>
                 <div class="premium-grid">
                     <div class="premium-card">
-                        <div class="premium-tag">EDUCATION</div>
+                        <div class="premium-tag">Education</div>
                         <div class="premium-title">초품아 학세권</div>
-                        <p class="premium-desc">양산1초(예정)를 품은 초품아 상권</p>
+                        <p class="premium-desc">양산1초(예정)를 품은 안전하고 쾌적한 통학 환경 상권</p>
                     </div>
                     <div class="premium-card">
-                        <div class="premium-tag">EXCLUSIVE</div>
-                        <div class="premium-title">유일한 교육환경</div>
-                        <p class="premium-desc">양산지구 유일 중학교(예정) 인접</p>
-                    </div>
-                    <div class="premium-card">
-                        <div class="premium-tag">DEMAND</div>
+                        <div class="premium-tag">Demand</div>
                         <div class="premium-title">1,670세대 고정</div>
-                        <p class="premium-desc">롯데캐슬 입주민의 안정적인 배후수요</p>
+                        <p class="premium-desc">롯데캐슬 입주민의 안정적인 단지 내 배후 수요 확보</p>
                     </div>
                     <div class="premium-card">
-                        <div class="premium-tag">ESSENTIAL</div>
-                        <div class="premium-title">생활 밀착형</div>
-                        <p class="premium-desc">필수 업종 최적화 스트리트 몰 구성</p>
-                    </div>
-                    <div class="premium-card">
-                        <div class="premium-tag">BRAND</div>
-                        <div class="premium-title">브랜드 파워</div>
-                        <p class="premium-desc">No.1 롯데캐슬의 검증된 프리미엄</p>
-                    </div>
-                    <div class="premium-card">
-                        <div class="premium-tag">PARK</div>
+                        <div class="premium-tag">Park</div>
                         <div class="premium-title">1,661평 공원</div>
-                        <p class="premium-desc">대규모 어린이 공원 인접 힐링 상권</p>
+                        <p class="premium-desc">대규모 어린이 공원과 연계된 힐링 휴식형 상가</p>
                     </div>
                 </div>
                 <div class="park-img"><img src="https://drive.google.com/thumbnail?id=14pxfzqCGw8GjvHdlfNYw-9n18fxhFI9N&sz=w1600" alt="공원"></div>
             </section>
 
-            <!-- 평면도 -->
+            <!-- 03 평면도 (새로운 탭 시스템) -->
             <section id="floorplan" class="section">
-                <div class="section-label">Layout Design</div>
+                <div class="section-label">Floor Navigation</div>
                 <h2 class="section-title">상가 평면도</h2>
-                <div class="tab-wrap">
-                    <button class="tab-btn active" onclick="setFloor('1동')">1동 평면도</button>
-                    <button class="tab-btn" onclick="setFloor('2동')">2동 평면도</button>
+                
+                <div class="tab-group">
+                    <div class="tab-title">1. 카테고리 선택</div>
+                    <div class="tab-btns">
+                        <button class="tab-btn active" onclick="updateView('map', null)">상가 평면도</button>
+                        <button class="tab-btn" onclick="updateView('area', null)">상가 면적표</button>
+                        <button class="tab-btn" onclick="updateView('front', null)">상가 전면도</button>
+                    </div>
+                    
+                    <div class="tab-title">2. 해당동 선택</div>
+                    <div class="sub-tab-btns">
+                        <button class="sub-btn active" onclick="updateView(null, '1')">1동 확인</button>
+                        <button class="sub-btn" onclick="updateView(null, '2')">2동 확인</button>
+                    </div>
                 </div>
+
                 <div class="floor-img-box">
-                    <img src="https://drive.google.com/thumbnail?id=1QwpdydqoZi_KfORoYW9Ps4O2qHv93ZCs&sz=w1600" id="img-floor1" class="active">
-                    <img src="https://drive.google.com/thumbnail?id=1gBoumlTlo_vlfJ6-gujd4UdlwwRatCUw&sz=w1600" id="img-floor2">
+                    <!-- 평면도 -->
+                    <img src="https://drive.google.com/thumbnail?id=1ovud2XA30kjVsUzxkeBj_yYazBxaK5B0&sz=w1600" id="img-map1" class="active">
+                    <img src="https://drive.google.com/thumbnail?id=1SU8uSTSo9j8tM_-RkJZDz4C5HMhZGeN9&sz=w1600" id="img-map2">
+                    <!-- 면적표 -->
+                    <img src="https://drive.google.com/thumbnail?id=1ZkrADMjisXet0IwNQnNnGsWVG7bhDfjn&sz=w1600" id="img-area1">
+                    <img src="https://drive.google.com/thumbnail?id=1XKnC5rjCajRF6vIteXbCU__Q8W23lTrj&sz=w1600" id="img-area2">
+                    <!-- 전면도 -->
+                    <img src="https://drive.google.com/thumbnail?id=1W6rjbERbKnFzbRdonXJIzBOdLny8r2rA&sz=w1600" id="img-front1">
+                    <img src="https://drive.google.com/thumbnail?id=1FVBM8LarLDj-u4EfYEEAxJlbMEwCYG9S&sz=w1600" id="img-front2">
                 </div>
             </section>
 
-            <!-- 현장사진 -->
+            <!-- 04 현장 실사진 -->
             <section id="actual-site" class="section">
-                <div style="text-align: right;"><div class="section-label">Current Progress</div><h2 class="section-title">현장 실사진</h2></div>
+                <div class="section-label">Site Photo</div>
+                <h2 class="section-title">현장 실사진</h2>
                 <div class="actual-site-box"><img src="https://drive.google.com/thumbnail?id=1QvqO3rCl6V2M8hWbXs5qKm2RLQ1WKvHb&sz=w1600"></div>
             </section>
 
-            <!-- 문의하기 -->
+            <!-- 문의 -->
             <section id="contact" class="section">
                 <div class="contact-box">
-                    <h2 class="contact-title">양산동 롯데캐슬 위너스포레<br><span>분양가 및 잔여세대</span> 문의</h2>
-                    <p class="contact-desc">상세한 분양 일정 및 가격 상담은<br>대표번호로 전화 주시면 친절히 안내 도와드리겠습니다.</p>
+                    <h2 class="contact-title">롯데캐슬 위너스포레<br><span>분양가 및 잔여세대</span> 문의</h2>
                     <a href="tel:1588-2886" class="call-btn">1588-2886</a>
                 </div>
             </section>
 
             <!-- 푸터 -->
             <footer class="footer">
-                <div class="biz-brand">
-                    <svg class="icon" style="color: #D4AF37;"><path d="M3 21h18M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16M9 8h1m-1 4h1m-1 4h1m4-8h1m-1 4h1m-1 4h1"/></svg>
-                    <span>Lotte Castle Winners Foret</span>
-                </div>
+                <div class="biz-brand"><span>Lotte Castle Winners Foret</span></div>
                 <div class="biz-grid">
-                    <div><span>상호</span> 세움부동산중개법인(주)</div>
-                    <div><span>대표자</span> 장진아</div>
-                    <div><span>사업자등록번호</span> 324-87-01959</div>
-                    <div><span>전화</span> 031-546-3535 / 010-4455-2690</div>
-                    <div style="grid-column: span 2;"><span>소재지</span> 경기도 수원시 영통구 망포로 136, 107호(망포동,영통플래티넘베이스에이)</div>
+                    <div><b>상호명</b> 세움부동산중개법인(주)</div>
+                    <div><b>대표자</b> 장진아</div>
+                    <div><b>사업자번호</b> 324-87-01959</div>
+                    <div><b>대표번호</b> 1588-2886</div>
                 </div>
-                <p class="copy">&copy; 2026 Yangsan-dong Lotte Castle Winners Foret. All Rights Reserved. | 제작물상의 이미지는 실제와 다를 수 있습니다. | 파워링크 공식 광고 파트너</p>
+                <p class="copy">&copy; 2026 Lotte Castle Winners Foret. All Rights Reserved.</p>
             </footer>
         </div>
     </main>
 </div>
 
-<!-- 플로팅 호출 버튼 -->
 <a href="tel:1588-2886" class="floating-call">
-    <svg class="icon" style="color: #001f3f; stroke-width: 3;"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l2.21-2.21a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    <svg style="width: 28px; height: 28px; fill: #001f3f;" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
 </a>
 
-<!-- 카카오 앱 설치 및 실행 스크립트 -->
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
 <script>
-    // 1. 평면도 전환 기능
-    function setFloor(f) {
-        const btns = document.querySelectorAll('.tab-btn');
-        const img1 = document.getElementById('img-floor1');
-        const img2 = document.getElementById('img-floor2');
-        if(btns.length > 0) {
-            btns[0].classList.toggle('active', f === '1동');
-            btns[1].classList.toggle('active', f === '2동');
+    let currentType = 'map';
+    let currentDong = '1';
+
+    function updateView(type, dong) {
+        if (type) {
+            currentType = type;
+            document.querySelectorAll('.tab-btn').forEach((b, i) => {
+                const types = ['map', 'area', 'front'];
+                b.classList.toggle('active', types[i] === type);
+            });
         }
-        if(img1) img1.classList.toggle('active', f === '1동');
-        if(img2) img2.classList.toggle('active', f === '2동');
+        if (dong) {
+            currentDong = dong;
+            document.querySelectorAll('.sub-btn').forEach((b, i) => {
+                const dongs = ['1', '2'];
+                b.classList.toggle('active', dongs[i] === dong);
+            });
+        }
+
+        // 모든 이미지 숨기기
+        document.querySelectorAll('.floor-img-box img').forEach(img => img.classList.remove('active'));
+        // 선택된 이미지 보이기
+        const targetId = `img-${currentType}${currentDong}`;
+        const targetImg = document.getElementById(targetId);
+        if (targetImg) targetImg.classList.add('active');
     }
 
-    // 2. 카카오 지도 렌더링 (핵심 로직 수정)
     window.onload = function() {
-        const mapContainer = document.getElementById('daumRoughmapContainer1776656865622');
-        if (window.daum && window.daum.roughmap && mapContainer) {
-            // 지도를 그리기 전 로딩 메시지가 담긴 내부 내용을 완전히 비웁니다.
-            mapContainer.innerHTML = '';
-            
-            new daum.roughmap.Lander({
-                "timestamp" : "1776656865622",
-                "key" : "mzsaf6j5kdk",
-                "mapWidth" : "100%", // 반응형 100% 적용
-                "mapHeight" : "360"
-            }).render();
+        const container = document.getElementById('daumRoughmapContainer1776656865622');
+        if (window.daum && window.daum.roughmap && container) {
+            container.innerHTML = '';
+            new daum.roughmap.Lander({ "timestamp" : "1776656865622", "key" : "mzsaf6j5kdk", "mapWidth" : "100%", "mapHeight" : "360" }).render();
         }
     };
-
-    // 3. 스크롤 네비게이션 감지 (Scroll Spy)
-    const scrollArea = window.innerWidth >= 768 ? document.getElementById('scroll-target') : window;
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.nav-item');
-
-    function onScroll() {
-        let current = "";
-        const scrollPos = (scrollArea === window ? window.scrollY : scrollArea.scrollTop) + 150;
-        sections.forEach(s => {
-            if (scrollPos >= s.offsetTop) current = s.getAttribute('id');
-        });
-        navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-        });
-    }
-    
-    if (scrollArea) {
-        if (window.innerWidth >= 768) {
-            scrollArea.addEventListener('scroll', onScroll);
-        } else {
-            window.addEventListener('scroll', onScroll);
-        }
-    }
 </script>
 
 </body>
