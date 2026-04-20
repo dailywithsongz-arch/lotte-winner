@@ -16,6 +16,7 @@
             --white: #ffffff;
             --slate: #f1f5f9;
             --gray-text: #64748b;
+            --sidebar-width: 440px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -32,7 +33,7 @@
         .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
         @media (min-width: 1024px) { .wrapper { flex-direction: row; height: 100vh; overflow: hidden; } }
 
-        /* --- 사이드바 --- */
+        /* --- 사이드바 (데스크탑 고정 영역) --- */
         .sidebar {
             position: relative;
             background-color: var(--navy);
@@ -43,7 +44,7 @@
             flex-direction: column;
             justify-content: center;
         }
-        @media (min-width: 1024px) { .sidebar { width: 440px; height: 100vh; flex-shrink: 0; padding: 80px 60px; justify-content: space-between; } }
+        @media (min-width: 1024px) { .sidebar { width: var(--sidebar-width); height: 100vh; flex-shrink: 0; padding: 80px 60px; justify-content: space-between; border-right: 1px solid rgba(212, 175, 55, 0.1); } }
 
         .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.25; filter: grayscale(100%); z-index: 0; }
         .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,31,63,0.8), rgba(0,31,63,1)); z-index: 1; }
@@ -62,7 +63,7 @@
         }
         .nav-item.active { color: var(--gold); border-left-color: var(--gold); transform: translateX(8px); }
 
-        /* --- 메인 콘텐츠 --- */
+        /* --- 메인 콘텐츠 (우측 스크롤 영역) --- */
         .main-content { flex: 1; background-color: var(--slate); padding: 40px 20px; }
         @media (min-width: 1024px) { .main-content { height: 100vh; overflow-y: auto; padding: 60px 80px; } }
         .container { max-width: 860px; margin: 0 auto; }
@@ -71,69 +72,24 @@
         .section-label { color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
         .section-title { font-size: 1.65rem; font-weight: 900; color: var(--navy); border-bottom: 4px solid var(--gold); display: inline-block; padding-bottom: 4px; margin-bottom: 30px; }
 
-        /* --- 대표 이미지 섹션 (추가됨) --- */
-        .hero-box {
-            position: relative;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,31,63,0.15);
-            border: 6px solid white;
-            margin-bottom: 60px;
-            background: #000;
-        }
-        .hero-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 1.5s ease;
-        }
-        .hero-box:hover .hero-img {
-            transform: scale(1.05);
-        }
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,31,63,0.9) 0%, rgba(0,31,63,0.2) 60%, transparent 100%);
-        }
-        .hero-content {
-            position: absolute;
-            bottom: 25px;
-            left: 20px;
-            right: 20px;
-        }
-        @media (min-width: 640px) {
-            .hero-content { bottom: 50px; left: 50px; right: 50px; }
-        }
-        .hero-tag {
-            color: var(--gold);
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .hero-title {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 900;
-            line-height: 1.25;
-            letter-spacing: -0.02em;
-        }
-        @media (min-width: 640px) {
-            .hero-title { font-size: 2.8rem; }
-        }
-        .hero-title span {
-            color: var(--gold);
-            font-style: italic;
-        }
+        /* --- 메인 히어로 비주얼 --- */
+        .hero-box { position: relative; border-radius: 32px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,31,63,0.15); border: 6px solid white; margin-bottom: 60px; background: #000; }
+        .hero-img { width: 100%; height: auto; display: block; transition: 1s ease; }
+        .hero-box:hover .hero-img { transform: scale(1.03); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,31,63,0.9) 0%, rgba(0,31,63,0.2) 60%, transparent 100%); }
+        .hero-content { position: absolute; bottom: 25px; left: 20px; right: 20px; }
+        @media (min-width: 640px) { .hero-content { bottom: 50px; left: 50px; right: 50px; } }
+        .hero-title { color: white; font-size: 1.4rem; font-weight: 900; line-height: 1.25; }
+        @media (min-width: 640px) { .hero-title { font-size: 2.8rem; } }
+        .hero-title span { color: var(--gold); font-style: italic; }
 
         /* --- 사업개요 카드 --- */
         .table-card { background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,31,63,0.06); overflow: hidden; border: 1px solid rgba(0,31,63,0.05); }
         .overview-table { width: 100%; border-collapse: collapse; }
         @media (max-width: 640px) {
             .overview-table tr { display: block; padding: 20px; border-bottom: 1px solid #f1f5f9; }
-            .overview-table th { display: block; padding: 0 0 6px 0; font-size: 11px; text-align: left; }
-            .overview-table td { display: block; padding: 0; font-size: 1.1rem; font-weight: 700; }
+            .overview-table th { display: block; padding: 0 0 6px 0; font-size: 11px; text-align: left; color: var(--gold); letter-spacing: 0.1em; }
+            .overview-table td { display: block; padding: 0; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
         }
         @media (min-width: 641px) {
             .overview-table th { width: 32%; background: #fafbfc; padding: 24px; text-align: left; font-size: 13px; font-weight: 900; color: #b8962d; border-right: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
@@ -143,56 +99,70 @@
         /* --- 지도 --- */
         .map-wrap { margin-top: 24px; background: white; padding: 10px; border-radius: 20px; border: 1px solid rgba(0,31,63,0.08); box-shadow: 0 15px 30px rgba(0,0,0,0.04); }
         .fallback-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .map-btn { display: flex; align-items: center; justify-content: center; height: 44px; font-size: 11px; font-weight: 800; color: var(--navy); background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; }
+        .map-btn { display: flex; align-items: center; justify-content: center; height: 44px; font-size: 11px; font-weight: 800; color: var(--navy); background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; transition: 0.2s; }
+        .map-btn:hover { background: var(--navy); color: var(--gold); }
 
-        /* --- 평면도 전환 시스템 (중요!) --- */
-        .tab-group { margin-bottom: 20px; }
-        .tab-title { font-size: 11px; font-weight: 900; color: var(--gray-text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
-        .tab-btns { display: flex; gap: 8px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; height: 50px; background: white; border: 1px solid #e2e8f0; font-weight: 800; font-size: 13px; cursor: pointer; border-radius: 12px; transition: 0.2s; }
-        .tab-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+        /* --- 평면도 전환 시스템 (Category + Dong) --- */
+        .tab-system { margin-bottom: 30px; background: white; padding: 24px; border-radius: 28px; border: 1px solid #e2e8f0; box-shadow: 0 10px 40px rgba(0,31,63,0.03); }
+        .tab-step { margin-bottom: 20px; }
+        .tab-step:last-child { margin-bottom: 0; }
+        .tab-title { font-size: 11px; font-weight: 900; color: var(--gray-text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px; }
+        .tab-title i { width: 18px; height: 18px; background: var(--gold); color: var(--navy); display: flex; align-items: center; justify-content: center; border-radius: 50%; font-style: normal; font-size: 10px; }
         
-        .sub-tab-btns { display: flex; gap: 6px; }
-        .sub-btn { flex: 1; height: 40px; background: #eaeff5; border: none; font-weight: 800; font-size: 12px; cursor: pointer; border-radius: 8px; color: var(--gray-text); }
-        .sub-btn.active { background: var(--gold); color: var(--navy); }
+        .tab-row { display: flex; gap: 8px; margin-bottom: 15px; }
+        .cat-btn { flex: 1; height: 56px; background: #f8fafc; border: 1px solid #e2e8f0; font-weight: 800; font-size: 13px; cursor: pointer; border-radius: 16px; transition: 0.2s; color: var(--navy); }
+        .cat-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); box-shadow: 0 10px 20px rgba(0,31,63,0.15); }
+        
+        .dong-row { display: flex; gap: 6px; }
+        .dong-btn { flex: 1; height: 46px; background: #eaeff5; border: none; font-weight: 800; font-size: 12px; cursor: pointer; border-radius: 12px; color: var(--gray-text); transition: 0.2s; }
+        .dong-btn.active { background: var(--gold); color: var(--navy); box-shadow: 0 6px 15px rgba(212,175,55,0.3); }
 
-        .floor-img-box { background: white; padding: 15px; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-top: 20px; }
-        .floor-img-box img { width: 100%; display: none; }
-        .floor-img-box img.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .image-viewport { background: white; padding: 15px; border-radius: 28px; border: 1px solid #e2e8f0; box-shadow: 0 20px 50px rgba(0,0,0,0.04); margin-top: 24px; min-height: 200px; display: flex; align-items:center; justify-content: center; overflow: hidden; }
+        .image-viewport img { width: 100%; height: auto; display: none; border-radius: 16px; }
+        .image-viewport img.active { display: block; animation: zoomFade 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes zoomFade { from { opacity: 0; transform: scale(0.97); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0px); } }
 
         /* --- 프리미엄 그리드 --- */
-        .premium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-        .premium-card { background: white; padding: 24px; border-radius: 18px; border: 1px solid rgba(0,31,63,0.04); }
-        .premium-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 6px; color: var(--navy); }
+        .premium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+        .premium-card { background: white; padding: 30px 24px; border-radius: 22px; border: 1px solid rgba(0,31,63,0.04); transition: 0.3s; }
+        .premium-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,31,63,0.08); }
+        .premium-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; color: var(--navy); }
+        .premium-desc { font-size: 0.85rem; color: var(--gray-text); font-weight: 600; line-height: 1.5; }
 
-        .park-img { margin-top: 30px; border: 6px solid white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .park-img img { width: 100%; display: block; }
-        .actual-site-box { border: 6px solid white; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-        .actual-site-box img { width: 100%; display: block; }
+        .park-img, .actual-site-box { margin-top: 30px; border: 8px solid white; border-radius: 32px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .park-img img, .actual-site-box img { width: 100%; display: block; }
 
         /* --- 문의하기 --- */
-        .contact-box { background: var(--navy); color: white; padding: 60px 24px; border-radius: 32px; text-align: center; margin-top: 40px; }
+        .contact-box { background: var(--navy); color: white; padding: 70px 24px; border-radius: 40px; text-align: center; margin-top: 40px; position: relative; overflow: hidden; }
+        .contact-box::after { content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px; background: var(--gold); opacity: 0.1; filter: blur(80px); border-radius: 50%; }
+        .contact-title { font-size: 1.6rem; font-weight: 900; line-height: 1.3; margin-bottom: 30px; }
+        @media (min-width: 640px) { .contact-title { font-size: 2.6rem; } }
+        .contact-title span { color: var(--gold); }
         .call-btn { 
-            display: flex; align-items: center; justify-content: center; gap: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 15px;
             background: linear-gradient(to right, var(--gold), var(--gold-light)); color: var(--navy-dark); 
-            font-size: 1.75rem; font-weight: 900; width: 100%; max-width: 400px; margin: 0 auto; height: 80px; border-radius: 20px; text-decoration: none; 
+            font-size: 1.8rem; font-weight: 900; width: 100%; max-width: 440px; margin: 0 auto; height: 86px; border-radius: 24px; text-decoration: none; 
+            box-shadow: 0 20px 40px rgba(212,175,55,0.3); transition: 0.3s;
         }
+        .call-btn:active { transform: scale(0.96); }
 
         /* --- 플로팅 및 푸터 --- */
-        .floating-call { position: fixed; bottom: 24px; right: 24px; background: var(--gold); width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(212,175,55,0.4); z-index: 1000; text-decoration: none; }
-        .footer { padding-top: 60px; border-top: 1px solid #e2e8f0; margin-top: 40px; }
-        .biz-brand { font-weight: 900; font-size: 18px; margin-bottom: 24px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
-        .biz-grid { display: grid; grid-template-columns: 1fr; gap: 12px; font-size: 11px; font-weight: 700; color: var(--gray-text); }
-        @media (min-width: 640px) { .biz-grid { grid-template-columns: 1fr 1fr; } }
-        .biz-grid b { color: var(--navy); margin-right: 6px; font-weight: 800; min-width: 70px; display: inline-block; }
-        .copy { margin-top: 40px; font-size: 10px; color: #cbd5e1; font-weight: 600; line-height: 1.6; }
+        .floating-call { position: fixed; bottom: 30px; right: 30px; background: var(--gold); width: 70px; height: 70px; border-radius: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 35px rgba(212,175,55,0.5); z-index: 1000; text-decoration: none; animation: floatAnim 2.5s infinite ease-in-out; }
+        @keyframes floatAnim { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .footer { padding: 80px 0; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        .biz-brand { font-weight: 900; font-size: 20px; margin-bottom: 30px; color: var(--navy); display: flex; align-items: center; gap: 12px; }
+        .biz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; font-size: 11px; font-weight: 700; color: var(--gray-text); }
+        @media (min-width: 641px) { .biz-grid { grid-template-columns: 1fr 1fr; } }
+        .biz-grid b { color: var(--navy); font-weight: 900; min-width: 80px; display: inline-block; opacity: 0.8; }
+        .copy { margin-top: 50px; font-size: 10px; color: #cbd5e1; font-weight: 700; letter-spacing: 0.05em; line-height: 1.8; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
+    <!-- 왼쪽 사이드바 (데스크탑 고정) -->
     <aside class="sidebar">
         <img src="https://drive.google.com/thumbnail?id=1INZKRXW_NUZhNn0-Q-640iRaubrDCIOP&sz=w1600" class="bg-img" alt="배경">
         <div class="bg-overlay"></div>
@@ -203,7 +173,7 @@
                 <span>롯데캐슬 명품 상가</span>
             </h1>
             <nav class="desktop-nav">
-                <a href="#overview" class="nav-item active">01 사업개요</a>
+                <a href="#overview" class="nav-item">01 사업개요</a>
                 <a href="#premium" class="nav-item">02 프리미엄 6</a>
                 <a href="#floorplan" class="nav-item">03 상가 평면도</a>
                 <a href="#actual-site" class="nav-item">04 현장 실사진</a>
@@ -211,12 +181,27 @@
             </nav>
         </div>
         <div class="sidebar-content" style="margin-top: 30px;">
-            <p style="font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.5);">경기 오산시 양산동 95 | 1,670세대 대단지</p>
+            <p style="font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em;">경기 오산시 양산동 95 | 1,670세대 대단지 고정수요</p>
         </div>
     </aside>
 
+    <!-- 오른쪽 메인 콘텐츠 (스크롤 영역) -->
     <main class="main-content" id="scroll-target">
         <div class="container">
+            
+            <!-- [추천] 대표 메인 이미지 -->
+            <section id="hero" class="hero-box">
+                <img src="https://drive.google.com/thumbnail?id=1POPnlQYxUMK27cflgD9AYkepkBGPSlJW&sz=w1600" class="hero-img" alt="메인 비주얼">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-tag">Heritage & Pride</div>
+                    <h2 class="hero-title">
+                        양산지구 브랜드 타운의 완성<br>
+                        <span>롯데캐슬 위너스포레</span>
+                    </h2>
+                </div>
+            </section>
+
             <!-- 01 사업개요 -->
             <section id="overview" class="section">
                 <div class="section-label">Project Details</div>
@@ -224,11 +209,10 @@
                 <div class="table-card">
                     <table class="overview-table">
                         <tr><th>위치</th><td>경기도 오산시 양산동 95번지 일원</td></tr>
-                        <tr><th>대지 규모</th><td>아파트 총 1,670세대 대단지</td></tr>
+                        <tr><th>대지 규모</th><td>아파트 총 1,670세대 대단지 고정수요</td></tr>
                         <tr><th>상가 규모</th><td>총 32개 호실 (1동 19실 / 2동 13실)</td></tr>
-                        <tr><th>주차 시설</th><td>총 27대 확보</td></tr>
+                        <tr><th>주차 시설</th><td>상가 전용 총 27대 확보</td></tr>
                         <tr><th>입주 예정</th><td>2027년 08월 (양산1중 개교 동시)</td></tr>
-                        <tr><th>교육 환경</th><td>양산1초(29년), 양산1중(27년) 인접</td></tr>
                     </table>
                 </div>
                 <div class="map-wrap">
@@ -253,45 +237,49 @@
                     <div class="premium-card">
                         <div class="premium-tag">Demand</div>
                         <div class="premium-title">1,670세대 고정</div>
-                        <p class="premium-desc">롯데캐슬 입주민의 안정적인 단지 내 배후 수요 확보</p>
+                        <p class="premium-desc">롯데캐슬 입주민의 안정적인 단지 내 독점 배후 수요</p>
                     </div>
                     <div class="premium-card">
                         <div class="premium-tag">Park</div>
                         <div class="premium-title">1,661평 공원</div>
-                        <p class="premium-desc">대규모 어린이 공원과 연계된 힐링 휴식형 상가</p>
+                        <p class="premium-desc">대규모 공원과 연계된 힐링 휴식형 스트리트 상가</p>
                     </div>
                 </div>
-                <div class="park-img"><img src="https://drive.google.com/thumbnail?id=14pxfzqCGw8GjvHdlfNYw-9n18fxhFI9N&sz=w1600" alt="공원"></div>
+                <div class="park-img"><img src="https://drive.google.com/thumbnail?id=14pxfzqCGw8GjvHdlfNYw-9n18fxhFI9N&sz=w1600" alt="공원 안내"></div>
             </section>
 
-            <!-- 03 평면도 (새로운 탭 시스템) -->
+            <!-- 03 평면도 및 상세 안내 (2단계 탭 시스템) -->
             <section id="floorplan" class="section">
                 <div class="section-label">Floor Navigation</div>
-                <h2 class="section-title">상가 평면도</h2>
+                <h2 class="section-title">상가 상세안내</h2>
                 
-                <div class="tab-group">
-                    <div class="tab-title">1. 카테고리 선택</div>
-                    <div class="tab-btns">
-                        <button class="tab-btn active" onclick="updateView('map', null)">상가 평면도</button>
-                        <button class="tab-btn" onclick="updateView('area', null)">상가 면적표</button>
-                        <button class="tab-btn" onclick="updateView('front', null)">상가 전면도</button>
+                <div class="tab-system">
+                    <div class="tab-step">
+                        <div class="tab-title"><i>1</i> 카테고리 선택</div>
+                        <div class="tab-row">
+                            <button class="cat-btn active" onclick="updateView('plan', null)">상가 평면도</button>
+                            <button class="cat-btn" onclick="updateView('area', null)">상가 면적표</button>
+                            <button class="cat-btn" onclick="updateView('front', null)">상가 전면도</button>
+                        </div>
                     </div>
                     
-                    <div class="tab-title">2. 해당동 선택</div>
-                    <div class="sub-tab-btns">
-                        <button class="sub-btn active" onclick="updateView(null, '1')">1동 </button>
-                        <button class="sub-btn" onclick="updateView(null, '2')">2동 </button>
+                    <div class="tab-step">
+                        <div class="tab-title"><i>2</i> 해당 동 선택</div>
+                        <div class="dong-row">
+                            <button class="dong-btn active" onclick="updateView(null, '1')">제 1동 확인</button>
+                            <button class="dong-btn" onclick="updateView(null, '2')">제 2동 확인</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="floor-img-box">
-                    <!-- 평면도 -->
-                    <img src="https://drive.google.com/thumbnail?id=1ovud2XA30kjVsUzxkeBj_yYazBxaK5B0&sz=w1600" id="img-map1" class="active">
-                    <img src="https://drive.google.com/thumbnail?id=1SU8uSTSo9j8tM_-RkJZDz4C5HMhZGeN9&sz=w1600" id="img-map2">
-                    <!-- 면적표 -->
+                <div class="image-viewport">
+                    <!-- 평면도 (PLAN) -->
+                    <img src="https://drive.google.com/thumbnail?id=1ovud2XA30kjVsUzxkeBj_yYazBxaK5B0&sz=w1600" id="img-plan1" class="active">
+                    <img src="https://drive.google.com/thumbnail?id=1SU8uSTSo9j8tM_-RkJZDz4C5HMhZGeN9&sz=w1600" id="img-plan2">
+                    <!-- 면적표 (AREA) -->
                     <img src="https://drive.google.com/thumbnail?id=1ZkrADMjisXet0IwNQnNnGsWVG7bhDfjn&sz=w1600" id="img-area1">
                     <img src="https://drive.google.com/thumbnail?id=1XKnC5rjCajRF6vIteXbCU__Q8W23lTrj&sz=w1600" id="img-area2">
-                    <!-- 전면도 -->
+                    <!-- 전면도 (FRONT) -->
                     <img src="https://drive.google.com/thumbnail?id=1W6rjbERbKnFzbRdonXJIzBOdLny8r2rA&sz=w1600" id="img-front1">
                     <img src="https://drive.google.com/thumbnail?id=1FVBM8LarLDj-u4EfYEEAxJlbMEwCYG9S&sz=w1600" id="img-front2">
                 </div>
@@ -299,20 +287,24 @@
 
             <!-- 04 현장 실사진 -->
             <section id="actual-site" class="section">
-                <div class="section-label">Site Photo</div>
-                <h2 class="section-title">현장 실사진</h2>
-                <div class="actual-site-box"><img src="https://drive.google.com/thumbnail?id=1QvqO3rCl6V2M8hWbXs5qKm2RLQ1WKvHb&sz=w1600"></div>
+                <div class="section-label" style="text-align: right;">Live Progress</div>
+                <h2 class="section-title" style="float: right;">현장 실사진</h2>
+                <div style="clear: both;"></div>
+                <div class="actual-site-box"><img src="https://drive.google.com/thumbnail?id=1QvqO3rCl6V2M8hWbXs5qKm2RLQ1WKvHb&sz=w1600" alt="현장사진"></div>
             </section>
 
-            <!-- 문의 -->
+            <!-- 하단 문의하기 -->
             <section id="contact" class="section">
                 <div class="contact-box">
                     <h2 class="contact-title">롯데캐슬 위너스포레<br><span>분양가 및 잔여세대</span> 문의</h2>
-                    <a href="tel:1588-2886" class="call-btn">1588-2886</a>
+                    <a href="tel:1588-2886" class="call-btn">
+                        <svg style="width: 32px; height: 32px; fill: currentColor;" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        1588-2886
+                    </a>
                 </div>
             </section>
 
-            <!-- 푸터 -->
+            <!-- 푸터 정보 -->
             <footer class="footer">
                 <div class="biz-brand"><span>Lotte Castle Winners Foret</span></div>
                 <div class="biz-grid">
@@ -321,54 +313,93 @@
                     <div><b>사업자번호</b> 324-87-01959</div>
                     <div><b>주소</b> 경기도 수원시 영통구 망포로 136</div>
                     <div><b>대표번호</b> 010-4455-2690</div>
+                    <div><b>광고제휴</b> 파워링크 공식 광고 파트너</div>
                 </div>
-                <p class="copy">&copy; 2026 Lotte Castle Winners Foret. All Rights Reserved.</p>
+                <p class="copy">
+                    &copy; 2026 Lotte Castle Winners Foret. All Rights Reserved.<br>본 웹사이트에 사용된 이미지는 소비자의 이해를 돕기 위한 조감도로 실제 시공과 차이가 있을 수 있습니다.
+                </p>
             </footer>
         </div>
     </main>
 </div>
 
+<!-- 플로팅 상담 버튼 (모바일 필수) -->
 <a href="tel:1588-2886" class="floating-call">
-    <svg style="width: 28px; height: 28px; fill: #001f3f;" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    <svg style="width: 34px; height: 34px; fill: #001f3f;" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
 </a>
 
+<!-- 카카오 지도 스크립트 -->
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
 <script>
-    let currentType = 'map';
+    /* --- 1. 평면도 탭 시스템 로직 --- */
+    let currentCategory = 'plan';
     let currentDong = '1';
 
-    function updateView(type, dong) {
-        if (type) {
-            currentType = type;
-            document.querySelectorAll('.tab-btn').forEach((b, i) => {
-                const types = ['map', 'area', 'front'];
-                b.classList.toggle('active', types[i] === type);
+    function updateView(category, dong) {
+        // 카테고리 업데이트
+        if (category) {
+            currentCategory = category;
+            const catBtns = document.querySelectorAll('.cat-btn');
+            const cats = ['plan', 'area', 'front'];
+            catBtns.forEach((btn, idx) => {
+                btn.classList.toggle('active', cats[idx] === category);
             });
         }
+        // 동 업데이트
         if (dong) {
             currentDong = dong;
-            document.querySelectorAll('.sub-btn').forEach((b, i) => {
-                const dongs = ['1', '2'];
-                b.classList.toggle('active', dongs[i] === dong);
+            const dongBtns = document.querySelectorAll('.dong-btn');
+            const dongs = ['1', '2'];
+            dongBtns.forEach((btn, idx) => {
+                btn.classList.toggle('active', dongs[idx] === dong);
             });
         }
 
-        // 모든 이미지 숨기기
-        document.querySelectorAll('.floor-img-box img').forEach(img => img.classList.remove('active'));
-        // 선택된 이미지 보이기
-        const targetId = `img-${currentType}${currentDong}`;
+        // 이미지 표시 처리
+        document.querySelectorAll('.image-viewport img').forEach(img => img.classList.remove('active'));
+        const targetId = `img-${currentCategory}${currentDong}`;
         const targetImg = document.getElementById(targetId);
         if (targetImg) targetImg.classList.add('active');
     }
 
+    /* --- 2. 카카오 지도 렌더링 --- */
     window.onload = function() {
         const container = document.getElementById('daumRoughmapContainer1776656865622');
         if (window.daum && window.daum.roughmap && container) {
-            container.innerHTML = '';
-            new daum.roughmap.Lander({ "timestamp" : "1776656865622", "key" : "mzsaf6j5kdk", "mapWidth" : "100%", "mapHeight" : "360" }).render();
+            container.innerHTML = ''; // 로딩 메시지 제거
+            new daum.roughmap.Lander({
+                "timestamp" : "1776656865622",
+                "key" : "mzsaf6j5kdk",
+                "mapWidth" : "100%",
+                "mapHeight" : "360"
+            }).render();
         }
     };
+
+    /* --- 3. 스크롤 스파이 (메뉴 활성화) --- */
+    const scrollArea = window.innerWidth >= 1024 ? document.getElementById('scroll-target') : window;
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.section');
+
+    function handleScroll() {
+        let active = "";
+        const offset = 180;
+        const currentPos = (scrollArea === window ? window.scrollY : scrollArea.scrollTop) + offset;
+
+        sections.forEach(s => {
+            if (currentPos >= s.offsetTop) active = s.getAttribute('id');
+        });
+
+        navItems.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + active);
+        });
+    }
+
+    if (scrollArea) {
+        const listener = window.innerWidth >= 1024 ? scrollArea : window;
+        listener.addEventListener('scroll', handleScroll);
+    }
 </script>
 
 </body>
