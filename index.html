@@ -64,12 +64,68 @@
 
         /* --- 메인 콘텐츠 --- */
         .main-content { flex: 1; background-color: var(--slate); padding: 40px 20px; }
-        @media (min-width: 1024px) { .main-content { height: 100vh; overflow-y: auto; padding: 100px 80px; } }
+        @media (min-width: 1024px) { .main-content { height: 100vh; overflow-y: auto; padding: 60px 80px; } }
         .container { max-width: 860px; margin: 0 auto; }
         .section { margin-bottom: 80px; scroll-margin-top: 40px; }
         @media (min-width: 1024px) { .section { margin-bottom: 120px; scroll-margin-top: 100px; } }
         .section-label { color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
         .section-title { font-size: 1.65rem; font-weight: 900; color: var(--navy); border-bottom: 4px solid var(--gold); display: inline-block; padding-bottom: 4px; margin-bottom: 30px; }
+
+        /* --- 대표 이미지 섹션 (추가됨) --- */
+        .hero-box {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,31,63,0.15);
+            border: 6px solid white;
+            margin-bottom: 60px;
+            background: #000;
+        }
+        .hero-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1.5s ease;
+        }
+        .hero-box:hover .hero-img {
+            transform: scale(1.05);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,31,63,0.9) 0%, rgba(0,31,63,0.2) 60%, transparent 100%);
+        }
+        .hero-content {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+        }
+        @media (min-width: 640px) {
+            .hero-content { bottom: 50px; left: 50px; right: 50px; }
+        }
+        .hero-tag {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .hero-title {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+        @media (min-width: 640px) {
+            .hero-title { font-size: 2.8rem; }
+        }
+        .hero-title span {
+            color: var(--gold);
+            font-style: italic;
+        }
 
         /* --- 사업개요 카드 --- */
         .table-card { background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,31,63,0.06); overflow: hidden; border: 1px solid rgba(0,31,63,0.05); }
