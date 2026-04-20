@@ -298,7 +298,7 @@
     <svg class="icon" style="color: #001f3f; stroke-width: 3;"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l2.21-2.21a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
 </a>
 
-<!-- 카카오 앱 설치 및 실행 스크립트 (외부 라이브러리지만 지도 전용) -->
+<!-- 카카오 앱 설치 및 실행 스크립트 -->
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
 <script>
@@ -307,24 +307,27 @@
         const btns = document.querySelectorAll('.tab-btn');
         const img1 = document.getElementById('img-floor1');
         const img2 = document.getElementById('img-floor2');
-        btns[0].classList.toggle('active', f === '1동');
-        btns[1].classList.toggle('active', f === '2동');
-        img1.classList.toggle('active', f === '1동');
-        img2.classList.toggle('active', f === '2동');
+        if(btns.length > 0) {
+            btns[0].classList.toggle('active', f === '1동');
+            btns[1].classList.toggle('active', f === '2동');
+        }
+        if(img1) img1.classList.toggle('active', f === '1동');
+        if(img2) img2.classList.toggle('active', f === '2동');
     }
 
-    // 2. 카카오 지도 렌더링
+    // 2. 카카오 지도 렌더링 (핵심 로직 수정)
     window.onload = function() {
-        if (window.daum && window.daum.roughmap) {
+        const mapContainer = document.getElementById('daumRoughmapContainer1776656865622');
+        if (window.daum && window.daum.roughmap && mapContainer) {
+            // 지도를 그리기 전 로딩 메시지가 담긴 내부 내용을 완전히 비웁니다.
+            mapContainer.innerHTML = '';
+            
             new daum.roughmap.Lander({
                 "timestamp" : "1776656865622",
                 "key" : "mzsaf6j5kdk",
-                "mapWidth" : "800", // 기본값
+                "mapWidth" : "100%", // 반응형 100% 적용
                 "mapHeight" : "360"
             }).render();
-            // 반응형 너비 조정
-            const mapContainer = document.querySelector('.root_daum_roughmap');
-            if(mapContainer) mapContainer.style.width = '100%';
         }
     };
 
@@ -344,10 +347,12 @@
         });
     }
     
-    if (window.innerWidth >= 768) {
-        scrollArea.addEventListener('scroll', onScroll);
-    } else {
-        window.addEventListener('scroll', onScroll);
+    if (scrollArea) {
+        if (window.innerWidth >= 768) {
+            scrollArea.addEventListener('scroll', onScroll);
+        } else {
+            window.addEventListener('scroll', onScroll);
+        }
     }
 </script>
 
