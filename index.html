@@ -120,7 +120,7 @@
         .map-btn { font-size: 11px; font-weight: 900; color: var(--gold); background: var(--navy); padding: 10px 20px; border-radius: 50px; text-decoration: none; transition: 0.3s; }
         .map-btn.naver { background: white; color: var(--navy); border: 1px solid #e2e8f0; }
 
-        /* --- 프리미엄 그리드 (6개) --- */
+        /* --- 프리미엄 그리드 (6개 항목 모두 포함) --- */
         .p-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
         .p-card { background: white; padding: 32px; border-radius: 24px; border: 1px solid rgba(0,31,63,0.04); transition: 0.3s; }
         .p-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,31,63,0.1); border-color: var(--gold); }
@@ -187,10 +187,10 @@
             <button onclick="toggleMenu(false)" style="background:none; border:none; color:white;"><svg width="32" height="32" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
         </div>
         <nav style="margin-top:40px;">
-            <a href="#overview" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none;">01 사업개요</a>
-            <a href="#premium" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none;">02 프리미엄</a>
-            <a href="#floorplan" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none;">03 평면안내</a>
-            <a href="#actual-site" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none;">04 현장사진</a>
+            <a href="#overview" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none; font-style: italic;">01 사업개요</a>
+            <a href="#premium" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none; font-style: italic;">02 프리미엄</a>
+            <a href="#floorplan" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none; font-style: italic;">03 평면안내</a>
+            <a href="#actual-site" onclick="toggleMenu(false)" style="display:block; font-size:40px; color:white; font-weight:900; margin-bottom:30px; text-decoration:none; font-style: italic;">04 현장사진</a>
         </nav>
         <a href="tel:1588-2886" style="background:var(--gold); color:var(--navy); text-align:center; padding:20px; border-radius:20px; font-weight:900; text-decoration:none;">전화 상담 예약</a>
     </div>
@@ -203,7 +203,7 @@
             <div class="sidebar-label">Lotte Castle Winners Foret</div>
             <h1 class="sidebar-title">양산지구의 완성,<br><span>롯데캐슬</span> 명품<br>단지 내 상가 분양</h1>
             <nav class="desktop-nav">
-                <a href="#overview" class="nav-item active"><span class="dot"></span>01 사업개요</a>
+                <a href="#overview" class="nav-item"><span class="dot"></span>01 사업개요</a>
                 <a href="#premium" class="nav-item"><span class="dot"></span>02 프리미엄 6</a>
                 <a href="#floorplan" class="nav-item"><span class="dot"></span>03 상가 평면안내</a>
                 <a href="#actual-site" class="nav-item"><span class="dot"></span>04 현장 실사진</a>
@@ -312,8 +312,8 @@
                 <div class="info-grid">
                     <div><b>상호명</b> 세움부동산중개법인(주)</div>
                     <div><b>대표자</b> 장진아</div>
-                    <div><b>사업자번호</b> 324-87-01959</div>
                     <div><b>주소</b> 경기도 수원시 영통구 망포로 136</div>
+                    <div><b>사업자번호</b> 324-87-01959</div>
                     <div><b>대표번호</b> 010-4455-2690</div>
                 </div>
                 <p class="copyright" style="margin-top:30px; font-size:10px; color:#cbd5e1;">&copy; 2026 Lotte Castle. All rights reserved. 파워링크 공식 제휴 파트너.</p>
@@ -333,7 +333,8 @@
         cBtns.forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
         dBtns.forEach(b => b.classList.toggle('active', b.dataset.dong === dong));
         imgs.forEach(i => i.classList.remove('active'));
-        document.getElementById(`img-${cat}${dong}`).classList.add('active');
+        const targetElement = document.getElementById(`img-${cat}${dong}`);
+        if(targetElement) targetElement.classList.add('active');
     }
     cBtns.forEach(b => b.addEventListener('click', () => { cat = b.dataset.cat; update(); }));
     dBtns.forEach(b => b.addEventListener('click', () => { dong = b.dataset.dong; update(); }));
@@ -341,14 +342,75 @@
     /* 지도 */
     window.onload = function() {
         if(window.daum && daum.roughmap) {
-            document.getElementById('daumRoughmapContainer1776656865622').innerHTML = '';
+            const container = document.getElementById('daumRoughmapContainer1776656865622');
+            if(container) container.innerHTML = '';
             new daum.roughmap.Lander({
                 "timestamp" : "1776656865622", "key" : "mzsaf6j5kdk", "mapWidth" : "100%", "mapHeight" : "360"
             }).render();
         }
     };
 
-    /* 스크롤 & 메뉴 */
+    /* --- 스크롤 스파이 (Scroll Spy) 및 네비게이션 로직 --- */
+    const scrollContainer = document.getElementById('scrollContainer');
+    const sections = document.querySelectorAll('.section');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    function handleScroll() {
+        let currentSectionId = "";
+        const triggerOffset = 250; // 트리거 시점 (픽셀)
+
+        // 현재 스크롤 위치 계산 (PC: div 내부 스크롤, 모바일: window 스크롤)
+        const scrollTop = (window.innerWidth >= 1024) 
+            ? scrollContainer.scrollTop 
+            : window.scrollY;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollTop >= sectionTop - triggerOffset) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        // 네비게이션 상태 업데이트
+        navItems.forEach(item => {
+            const href = item.getAttribute('href');
+            if (href === "#" + currentSectionId) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // 네비게이션 클릭 시 부드러운 스크롤 (PC 분할 레이아웃 대응)
+    navItems.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href');
+            if (targetId.startsWith('#') && targetId.length > 1) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement && window.innerWidth >= 1024) {
+                    e.preventDefault();
+                    scrollContainer.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+                // 모바일에서는 기본 앵커 이동(@html scroll-behavior: smooth)이 작동함
+            }
+        });
+    });
+
+    // 스크롤 이벤트 리스너 등록
+    if (window.innerWidth >= 1024 && scrollContainer) {
+        scrollContainer.addEventListener('scroll', handleScroll);
+    } else {
+        window.addEventListener('scroll', handleScroll);
+    }
+    
+    // 초기 로드 시 위치 체크
+    window.addEventListener('load', handleScroll);
+
+    // 모바일 메뉴 토글
     function toggleMenu(o) { document.getElementById('menuDrawer').classList.toggle('open', o); }
 </script>
 </body>
